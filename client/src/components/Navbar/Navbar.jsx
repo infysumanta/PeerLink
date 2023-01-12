@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <>
       <Box
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("white", "gray.700")}
         px={4}
         w="100%"
         shadow="lg"
@@ -50,24 +50,10 @@ const Navbar = () => {
                 onChange={(e) => setSearchText(e.target.value)}
               />
               <InputRightElement h={"full"}>
-                <Button variant={"ghost"}>
-                  <SearchIcon />
-                </Button>
+                <Button variant={"ghost"}>🔍</Button>
               </InputRightElement>
             </InputGroup>
-            {searchText && searchText.length >= 1 && (
-              <>
-                <Box
-                  position="absolute"
-                  w={{ base: "0px", md: "500px" }}
-                  marginTop="2px"
-                >
-                  <Card>
-                    <CardBody>Loading...</CardBody>
-                  </Card>
-                </Box>
-              </>
-            )}
+            {searchText && searchText.length >= 1 && <SearchListContainer />}
           </Box>
           <Flex alignItems={"center"} justifyContent={"space-between"} gap={5}>
             <Box
@@ -80,7 +66,7 @@ const Navbar = () => {
               alignItems={"center"}
               justifyContent={"center"}
             >
-              <BellIcon w={5} h={5} />
+              🔔
             </Box>
             <Box
               onClick={toggleColorMode}
@@ -92,12 +78,9 @@ const Navbar = () => {
               display="flex"
               alignItems={"center"}
               justifyContent={"center"}
+              shadow="md"
             >
-              {colorMode === "light" ? (
-                <MoonIcon w={5} h={5} />
-              ) : (
-                <SunIcon w={5} h={5} />
-              )}
+              {colorMode === "light" ? <>🌙</> : <>🔆</>}
             </Box>
             <Stack direction={"row"} spacing={7}>
               <Menu>
@@ -131,4 +114,18 @@ const Navbar = () => {
   );
 };
 
+const SearchListContainer = () => {
+  return (
+    <Box
+      position="absolute"
+      bg={useColorModeValue("white", "gray.900")}
+      w={{ base: "0px", md: "500px" }}
+      marginTop="2px"
+    >
+      <Card>
+        <CardBody>Loading...</CardBody>
+      </Card>
+    </Box>
+  );
+};
 export default Navbar;
