@@ -5,7 +5,7 @@ const config = require("./../config");
 
 const { User } = require("./../models");
 
-const register = asyncHandler(async (req, res) => {
+exports.register = asyncHandler(async (req, res) => {
   try {
     const { firstName, lastName, username, email, password, gender, dob } =
       req.body;
@@ -57,7 +57,7 @@ const register = asyncHandler(async (req, res) => {
   }
 });
 
-const login = asyncHandler(async (req, res) => {
+exports.login = asyncHandler(async (req, res) => {
   try {
     const { username, email } = req.body;
     if (!username || !password) {
@@ -91,7 +91,3 @@ const login = asyncHandler(async (req, res) => {
     throw new Error(`Something went Wrong`);
   }
 });
-module.exports = {
-  login,
-  register,
-};
