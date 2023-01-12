@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Heading, useColorModeValue, Flex, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  useColorModeValue,
+  Flex,
+  Link,
+  Text,
+} from "@chakra-ui/react";
 const LeftSide = () => {
   return (
     <>
@@ -15,6 +22,15 @@ const LeftSide = () => {
             </Heading>
             <Link>View All</Link>
           </Flex>
+          <hr style={{ marginTop: "10px" }} />
+          <Box p={3}>
+            <Text>🔔 Notifications</Text>
+            <Text>🔔 Notifications</Text>
+            <Text>🔔 Notifications</Text>
+            <Text>🔔 Notifications</Text>
+            <Text>🔔 Notifications</Text>
+            <Text>🔔 Notifications</Text>
+          </Box>
         </Box>
         <Box
           bg={useColorModeValue("white", "gray.700")}
@@ -23,8 +39,16 @@ const LeftSide = () => {
           shadow="md"
         >
           <Heading fontSize={"xl"} p={2} fontWeight={"semibold"}>
-            📌 Shortcut
+            📌 Pined User
           </Heading>
+          <hr style={{ marginTop: "10px" }} />
+          <Box p={3}>
+            <Text>📌 Pined User</Text>
+            <Text>📌 Pined User</Text>
+            <Text>📌 Pined User</Text>
+            <Text>📌 Pined User</Text>
+            <Text>📌 Pined User</Text>
+          </Box>
         </Box>
       </Box>
     </>
