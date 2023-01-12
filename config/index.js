@@ -3,7 +3,7 @@ module.exports = {
   PORT: process.env.PORT || "5000",
   NODE_ENV: process.env.NODE_ENV || "development",
   MONGO_URI:
-    process.env.MONGO_URI || "mongodb://localhost/sukhsum-socialmedia-app",
+    process.env.MONGO_URI || "mongodb://localhost/node-socialmedia-app",
   SESSION_SECRET:
     process.env.SESSION_SECRET || "d7d2d36676d6e04a46cfbe2c5b88f700a49708b8",
   JWT_SECRET:
