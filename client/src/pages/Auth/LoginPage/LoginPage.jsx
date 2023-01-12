@@ -40,6 +40,7 @@ const LoginPage = () => {
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
+          <Heading fontSize={"5xl"}>PeerLink</Heading>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
         </Stack>
         <Box
