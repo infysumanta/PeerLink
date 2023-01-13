@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Navbar from "./../components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { verifyUser } from "./../redux/actions/authActions";
-import { useToast } from "@chakra-ui/react";
+import { Box, useColorModeValue, useToast } from "@chakra-ui/react";
 const AppLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <>
+    <Box bg={useColorModeValue("gray.200", "gray.800")} minH="100vh">
       <Navbar />
       <Outlet />
-    </>
+    </Box>
   );
 };
 
