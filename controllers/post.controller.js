@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 
-const { Post, Like } = require("./../models");
+const { Post, Like, User } = require("./../models");
 exports.createPost = asyncHandler(async (req, res) => {
   try {
     const post = new Post();
@@ -18,8 +18,16 @@ exports.createPost = asyncHandler(async (req, res) => {
   }
 });
 
-exports.deletePost = asyncHandler((req, res) => {
+exports.deletePost = asyncHandler(async (req, res) => {
   try {
+    const { postId } = req.body;
+    await Post.findByIdAndDelete(postId);
+
+    return res.status(200).json({
+      success: true,
+      postId,
+      message: "Post Deleted",
+    });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -27,8 +35,20 @@ exports.deletePost = asyncHandler((req, res) => {
   }
 });
 
-exports.getUserPost = asyncHandler((req, res) => {
+exports.getUserPost = asyncHandler(async (req, res) => {
   try {
+    const userId = req.params.userId;
+
+    const posts = await Post.find({ postBy: userId })
+      .populate("postBy", "firstName lastName email username")
+      .populate("likes", "likeBy")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      posts,
+      message: "User Post Fetch",
+    });
   } catch (error) {
     console.log(error);
     res.status(500);
@@ -54,8 +74,17 @@ exports.getFeedPost = asyncHandler(async (req, res) => {
   }
 });
 
-exports.getSinglePost = asyncHandler((req, res) => {
+exports.getSinglePost = asyncHandler(async (req, res) => {
   try {
+    const post = await Post.findById(req.params.postId)
+      .populate("postBy", "name email username")
+      .populate("likes", "likeBy");
+
+    return res.status(200).json({
+      success: true,
+      post: post,
+      message: "Feed Post Fetch ss",
+    });
   } catch (error) {
     console.log(error);
     res.status(500);

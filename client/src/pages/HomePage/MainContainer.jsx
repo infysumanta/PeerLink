@@ -18,7 +18,10 @@ const MainContainer = () => {
     <>
       <Box flexGrow={3}>
         <CreatePost refreshData={fetchPost} />
-        {posts && posts.map((post) => <PostItem post={post} key={post._id} />)}
+        {posts &&
+          posts.map((post) => (
+            <PostItem post={post} key={post._id} refreshData={fetchPost} />
+          ))}
       </Box>
     </>
   );

@@ -27,7 +27,7 @@ import copy from "copy-to-clipboard";
 import { useNavigate } from "react-router-dom";
 import postApi from "../../api/postApi";
 
-const PostItem = ({ post }) => {
+const PostItem = ({ post, refreshData }) => {
   const [like, setLike] = useState(false);
   const user = useSelector((state) => state.auth?.user);
   const toast = useToast();
@@ -36,6 +36,22 @@ const PostItem = ({ post }) => {
   useEffect(() => {
     heartIcon(post, user);
   }, []);
+
+  const deletePost = async () => {
+    const body = {
+      postId: post._id,
+    };
+    const result = await postApi.deletePost(body);
+    if (result.success) {
+      refreshData();
+      toast({
+        title: "Post Deleted",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
 
   const handleLike = async () => {
     let body = {
@@ -90,7 +106,12 @@ const PostItem = ({ post }) => {
             </MenuButton>
             <MenuList>
               <MenuItem icon={<BiEdit fontSize={"20px"} />}>Edit</MenuItem>
-              <MenuItem icon={<MdDelete fontSize={"20px"} />}>Delete</MenuItem>
+              <MenuItem
+                icon={<MdDelete fontSize={"20px"} />}
+                onClick={deletePost}
+              >
+                Delete
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
