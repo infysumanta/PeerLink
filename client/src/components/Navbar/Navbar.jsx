@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteUserDetails } from "./../../redux/actions/authActions";
 import constant from "../../util/constant";
 const Navbar = () => {
@@ -53,7 +53,7 @@ const Navbar = () => {
           gap="2"
         >
           <Box fontSize={"2xl"} fontWeight="bold">
-            PeerLink
+            <Link to="/">PeerLink</Link>
           </Box>
           <Box display={{ base: "none", md: "inline" }}>
             <InputGroup>
@@ -79,6 +79,7 @@ const Navbar = () => {
               display="flex"
               alignItems={"center"}
               justifyContent={"center"}
+              onClick={() => navigate("/notifications")}
             >
               🔔
             </Box>
@@ -115,8 +116,20 @@ const Navbar = () => {
                     <p>@{user.username}</p>
                   </Center>
                   <MenuDivider />
-                  <MenuItem>Account</MenuItem>
-                  <MenuItem>Settings</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate(`/@${user.username}`);
+                    }}
+                  >
+                    Account
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      navigate(`/settings`);
+                    }}
+                  >
+                    Settings
+                  </MenuItem>
                   <MenuItem onClick={logout}>Logout</MenuItem>
                 </MenuList>
               </Menu>

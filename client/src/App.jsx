@@ -8,6 +8,9 @@ import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage/ForgotPasswordPa
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage/ResetPasswordPage";
 import AppLayout from "./layouts/AppLayout";
 import HomePage from "./pages/HomePage/HomePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import NotificationPage from "./pages/NotificationPage/NotificationPage";
 import NotFound from "./pages/NotFound/NotFound";
 
 const App = () => {
@@ -24,6 +27,9 @@ const App = () => {
         {/* App Layout */}
         <Route path="/" element={<AppLayout />}>
           <Route path="/" index element={<HomePage />} />
+          <Route path="/:username" index element={<ProfilePage />} />
+          <Route path="/settings" index element={<SettingsPage />} />
+          <Route path="/notifications" index element={<NotificationPage />} />
           {/* Not Found / Error Handler Url */}
           <Route path="*" element={<NotFound />} />
         </Route>
