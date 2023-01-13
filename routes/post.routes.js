@@ -7,9 +7,9 @@ router.use(verifyAuth);
 
 router.post("/create", postController.createPost);
 router.post("/delete", postController.deletePost);
-router.post("/get-user-post/:userId", postController.getUserPost);
-router.post("/get-feed-post", postController.getFeedPost);
-router.post("/get-single-post/:userId", postController.getSinglePost);
+router.get("/get-user-post/:userId", postController.getUserPost);
+router.get("/get-feed-post", postController.getFeedPost);
+router.get("/get-single-post/:postId", postController.getSinglePost);
 router.post("/like-post", postController.likePost);
 router.post("/dislike-post", postController.dislikePost);
 

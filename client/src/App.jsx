@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import NotificationPage from "./pages/NotificationPage/NotificationPage";
 import NotFound from "./pages/NotFound/NotFound";
+import PostPage from "./pages/PostPage/PostPage";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         {/* App Layout */}
         <Route path="/" element={<AppLayout />}>
           <Route path="/" index element={<HomePage />} />
+          <Route path="/posts/:post_id" index element={<PostPage />} />
           <Route path="/:username" index element={<ProfilePage />} />
           <Route path="/settings" index element={<SettingsPage />} />
           <Route path="/notifications" index element={<NotificationPage />} />

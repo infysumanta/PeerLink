@@ -12,7 +12,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import postApi from "../../api/postApi";
 const CreatePost = ({ refreshData }) => {
@@ -48,7 +48,7 @@ const CreatePost = ({ refreshData }) => {
     <>
       <Card shadow={"lg"} bg={useColorModeValue("white", "gray.700")}>
         <CardBody>
-          <HStack>
+          <HStack as={Link} to={`/@${user.username}`}>
             <Avatar name={user.fullname} size={"md"} />
             <Box>
               <Text fontWeight={"bold"}>{user.fullname}</Text>

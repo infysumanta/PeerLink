@@ -77,7 +77,7 @@ exports.getFeedPost = asyncHandler(async (req, res) => {
 exports.getSinglePost = asyncHandler(async (req, res) => {
   try {
     const post = await Post.findById(req.params.postId)
-      .populate("postBy", "name email username")
+      .populate("postBy", "firstName lastName email username")
       .populate("likes", "likeBy");
 
     return res.status(200).json({

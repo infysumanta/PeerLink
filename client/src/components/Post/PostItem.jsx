@@ -24,7 +24,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from "react-icons/ai";
 import { useState } from "react";
 import copy from "copy-to-clipboard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import postApi from "../../api/postApi";
 
 const PostItem = ({ post, refreshData }) => {
@@ -86,7 +86,7 @@ const PostItem = ({ post, refreshData }) => {
     <Card shadow={"lg"} bg={useColorModeValue("white", "gray.700")} mt={3}>
       <CardHeader>
         <Flex justifyContent="space-between" alignItems="center">
-          <HStack>
+          <HStack as={Link} to={`/@${post.postBy.username}`}>
             <Avatar
               name={`${post.postBy.firstName}${post.postBy.lastName}`}
               size={"md"}
@@ -100,20 +100,22 @@ const PostItem = ({ post, refreshData }) => {
               </Text>
             </Box>
           </HStack>
-          <Menu>
-            <MenuButton>
-              <HiDotsHorizontal fontSize={"20px"} />
-            </MenuButton>
-            <MenuList>
-              <MenuItem icon={<BiEdit fontSize={"20px"} />}>Edit</MenuItem>
-              <MenuItem
-                icon={<MdDelete fontSize={"20px"} />}
-                onClick={deletePost}
-              >
-                Delete
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          {post.postBy._id === user._id && (
+            <Menu>
+              <MenuButton>
+                <HiDotsHorizontal fontSize={"20px"} />
+              </MenuButton>
+              <MenuList>
+                <MenuItem icon={<BiEdit fontSize={"20px"} />}>Edit</MenuItem>
+                <MenuItem
+                  icon={<MdDelete fontSize={"20px"} />}
+                  onClick={deletePost}
+                >
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
       </CardHeader>
       <hr />
