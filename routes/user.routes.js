@@ -31,5 +31,3 @@ router
   .post(userController.readAllNotification);
 
 module.exports = router;
-
-getUser;

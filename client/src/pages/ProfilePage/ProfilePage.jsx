@@ -5,7 +5,6 @@ const ProfilePage = () => {
   if (username.includes("@")) {
     username = username.slice(1);
   }
-  console.log(username);
   return <div>{username}</div>;
 };
 

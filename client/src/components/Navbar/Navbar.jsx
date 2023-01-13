@@ -31,7 +31,6 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth?.user);
-  console.log(user);
   const logout = () => {
     dispatch(deleteUserDetails());
     localStorage.removeItem(constant.TOKEN_NAME);

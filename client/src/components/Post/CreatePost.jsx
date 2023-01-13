@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   useColorModeValue,
@@ -10,11 +10,40 @@ import {
   HStack,
   Text,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useSelector } from "react-redux";
-const CreatePost = () => {
+import postApi from "../../api/postApi";
+const CreatePost = ({ refreshData }) => {
   const user = useSelector((state) => state.auth?.user);
+  const [title, setTitle] = useState("");
+  const toast = useToast();
+
+  const createPost = async () => {
+    const data = {
+      title: title,
+    };
+    const res = await postApi.createPost(data);
+    if (res.success) {
+      setTitle("");
+      toast({
+        title: "Post created successfully",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      refreshData();
+    } else {
+      toast({
+        title: "Something went wrong",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <>
       <Card shadow={"lg"} bg={useColorModeValue("white", "gray.700")}>
@@ -27,7 +56,11 @@ const CreatePost = () => {
             </Box>
           </HStack>
           <hr style={{ marginTop: "10px", marginBottom: "5px" }} />
-          <Textarea placeholder="What's Your Thought!" />
+          <Textarea
+            placeholder="What's Your Thought!"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <Flex justifyContent={"space-between"} alignItems="center" mt="10px">
             <HStack>
               <Box fontSize={"20px"} cursor="pointer">
@@ -40,7 +73,9 @@ const CreatePost = () => {
                 🎥
               </Box>
             </HStack>
-            <Button size="md">Post</Button>
+            <Button size="md" onClick={createPost}>
+              Post
+            </Button>
           </Flex>
         </CardBody>
       </Card>
