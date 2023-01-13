@@ -19,14 +19,13 @@ import {
   Card,
   CardBody,
 } from "@chakra-ui/react";
-import { SunIcon, MoonIcon, SearchIcon, BellIcon } from "@chakra-ui/icons";
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [searchText, setSearchText] = useState();
   return (
     <>
       <Box
-        bg={useColorModeValue("white", "gray.700")}
+        bg={useColorModeValue("gray.50", "gray.700")}
         px={4}
         w="100%"
         shadow="lg"
@@ -118,7 +117,9 @@ const SearchListContainer = () => {
   return (
     <Box
       position="absolute"
-      bg={useColorModeValue("white", "gray.900")}
+      zIndex={999}
+      shadow={"lg"}
+      bg={useColorModeValue("gray.50", "gray.900")}
       w={{ base: "0px", md: "500px" }}
       marginTop="2px"
     >
