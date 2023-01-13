@@ -15,6 +15,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 
+import { useSelector } from "react-redux";
+
 const MainContainer = () => {
   return (
     <>
@@ -26,15 +28,16 @@ const MainContainer = () => {
 };
 
 const CreatePost = () => {
+  const user = useSelector((state) => state.auth?.user);
   return (
     <>
       <Card shadow={"lg"} bg={useColorModeValue("white", "gray.700")}>
         <CardBody>
           <HStack>
-            <Avatar name="Peer Link" size={"md"} />
+            <Avatar name={user.fullname} size={"md"} />
             <Box>
-              <Text fontWeight={"bold"}>Peer Link</Text>
-              <Text fontSize={"12px"}>@peerlink</Text>
+              <Text fontWeight={"bold"}>{user.fullname}</Text>
+              <Text fontSize={"12px"}>@{user.username}</Text>
             </Box>
           </HStack>
           <hr style={{ marginTop: "10px", marginBottom: "5px" }} />

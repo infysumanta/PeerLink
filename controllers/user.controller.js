@@ -2,7 +2,10 @@ exports.getUser = async (req, res) => {
   try {
     return res.status(200).json({
       success: true,
-      user: req.user,
+      user: {
+        ...req.user._doc,
+        fullname: `${req.user.firstName}${req.user.lastName}`,
+      },
       message: "User Validated",
     });
   } catch (error) {

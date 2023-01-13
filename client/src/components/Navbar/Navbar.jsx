@@ -30,9 +30,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const auth = useSelector((state) => state.auth);
-  console.log(auth);
-
+  const user = useSelector((state) => state.auth?.user);
+  console.log(user);
   const logout = () => {
     dispatch(deleteUserDetails());
     localStorage.removeItem(constant.TOKEN_NAME);
@@ -106,14 +105,14 @@ const Navbar = () => {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"sm"} name="Peer Link" bg={"gray.200"} />
+                  <Avatar size={"sm"} name={user.fullname} bg={"gray.200"} />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
                   <Center>
-                    <Avatar size={"xl"} name="Peer Link" />
+                    <Avatar size={"xl"} name={user.fullname} />
                   </Center>
                   <Center>
-                    <p>Username</p>
+                    <p>@{user.username}</p>
                   </Center>
                   <MenuDivider />
                   <MenuItem>Account</MenuItem>
