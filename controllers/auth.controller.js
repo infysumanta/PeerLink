@@ -59,14 +59,13 @@ exports.register = asyncHandler(async (req, res) => {
 
 exports.login = asyncHandler(async (req, res) => {
   try {
-    const { username, email } = req.body;
+    const { username, password } = req.body;
     if (!username || !password) {
       return res.status(403).json({
         success: false,
         message: "Please enter all required field",
       });
     }
-
     const user = await User.findOne({ username: username });
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
@@ -77,7 +76,13 @@ exports.login = asyncHandler(async (req, res) => {
 
       return res.status(200).json({
         success: true,
-        user: { ...user._doc, token },
+        user: {
+          email: user.email,
+          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          token: token,
+        },
         message: "Logged in Successfully!",
       });
     }

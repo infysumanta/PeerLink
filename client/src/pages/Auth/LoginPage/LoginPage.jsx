@@ -13,23 +13,21 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-
-import { Link as aHref } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link as aHref, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "./../../../redux/actions/authActions";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    toast({
-      title: "Account created.",
-      description: "We've created your account for you.",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(login(data, navigate, toast, setLoading));
   };
   return (
     <Flex
@@ -50,35 +48,46 @@ const LoginPage = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" placeholder="yourname@email.com" />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel>Password</FormLabel>
-              <Input type="password" placeholder="**********" />
-            </FormControl>
-            <Stack spacing={5}>
-              <Stack
-                direction={{ base: "column", sm: "row" }}
-                align={"start"}
-                justify={"end"}
-              >
-                <Link color={"blue.400"} as={aHref} to="/forgot-password">
-                  Forgot password?
-                </Link>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl id="username">
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="username"
+                  placeholder="username"
+                  {...register("username")}
+                />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  placeholder="**********"
+                  {...register("password")}
+                />
+              </FormControl>
+              <Stack spacing={5}>
+                <Stack
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"end"}
+                >
+                  <Link color={"blue.400"} as={aHref} to="/forgot-password">
+                    Forgot password?
+                  </Link>
+                </Stack>
+                <Button
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  type="submit"
+                  isLoading={loading}
+                >
+                  Sign in
+                </Button>
               </Stack>
-              <Button
-                bg={"blue.400"}
-                color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-                isLoading={loading}
-              >
-                Sign in
-              </Button>
-            </Stack>
+            </form>
             <Stack pt={2}>
               <Text align={"center"}>
                 Don't Have Account?{" "}
