@@ -1,5 +1,6 @@
 import { authTypes } from "./../types/authTypes";
 import authApi from "../../api/authApi";
+import userApi from "./../../api/userApi";
 import constant from "../../util/constant";
 
 // export const getAuthAction = (dispatch) => {
@@ -22,7 +23,7 @@ export const login = (params, navigate, toast, setLoading) => {
         isClosable: true,
       });
       localStorage.setItem(constant.TOKEN_NAME, res.user.token);
-      // dispatch(setUserDetails(res.user));
+      dispatch(setUserDetails(res.user));
       navigate("/");
     } catch (error) {
       toast({
@@ -64,6 +65,20 @@ export const signup = (params, navigate, toast, setLoading) => {
   };
 };
 
+export const verifyUser = (navigate, toast) => {
+  return async (dispatch) => {
+    const res = await userApi.getUser();
+    if (res.success) {
+      dispatch(setUserDetails(res.user));
+      // console.log("user validated");
+    } else {
+      dispatch(deleteUserDetails());
+      navigate("/login");
+      localStorage.removeItem(constant.TOKEN_NAME);
+    }
+  };
+};
+
 const setUserDetails = (data) => {
   return {
     type: authTypes.SET_USER_DETAILS,
@@ -71,7 +86,7 @@ const setUserDetails = (data) => {
   };
 };
 
-const deleteUserDetails = () => {
+export const deleteUserDetails = () => {
   return {
     type: authTypes.LOG_OUT,
   };

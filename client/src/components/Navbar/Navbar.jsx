@@ -19,9 +19,25 @@ import {
   Card,
   CardBody,
 } from "@chakra-ui/react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { deleteUserDetails } from "./../../redux/actions/authActions";
+import constant from "../../util/constant";
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [searchText, setSearchText] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
+
+  const logout = () => {
+    dispatch(deleteUserDetails());
+    localStorage.removeItem(constant.TOKEN_NAME);
+    navigate("/login");
+  };
   return (
     <>
       <Box
@@ -102,7 +118,7 @@ const Navbar = () => {
                   <MenuDivider />
                   <MenuItem>Account</MenuItem>
                   <MenuItem>Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem onClick={logout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
