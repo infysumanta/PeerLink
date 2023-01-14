@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "PerLink_Social_Media_Applications",
+            "script": "npm",
+            "args": "start"
+        }
+    ]
+}
